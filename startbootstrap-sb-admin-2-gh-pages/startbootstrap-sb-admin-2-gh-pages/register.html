@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EDU CONNECT - Register</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: white;
+            color: black;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col-lg-5,
+        .col-lg-7 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .col-lg-5 {
+            padding: 0;
+        }
+
+        /* Image section styling */
+        .bg-register-left {
+            background-color: #1e3d58;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .bg-register-left img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* Form section styling */
+        .card {
+            border: none;
+            border-radius: 10px;
+            background-color: #ADD8E6; /* Light blue background for the form */
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-body {
+            padding: 30px; /* Reduced padding for a more compact form */
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            margin-bottom: 8px; /* Smaller gap between fields */
+            padding: 4px; /* Reduced padding */
+        }
+
+        .text-gray-900 {
+            color: white;
+        }
+
+        /* Styling for the terms and conditions checkbox */
+        .form-group .terms-condition {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group .terms-condition input {
+            margin-right: 10px;
+        }
+
+        /* Links styling */
+        .text-center a.small {
+            color: black !important;
+        }
+
+        /* Password guideline styling */
+        .password-guidelines {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .password-error {
+            color: red;
+            font-size: 0.75rem;
+        }
+
+        .password-mismatch {
+            color: red;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .btn-google {
+            background-color: burlywood;
+            border: 1px solid #87CEEB;
+            color: black;
+            font-weight: 500;
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-google i {
+            margin-right: 8px;
+        }
+
+        .btn-google:hover {
+            background-color: #87CEEB;
+            border-color: #87CEEB;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        h1.h4 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .form-group.row .col-sm-6 {
+            padding-right: 7px;
+            padding-left: 7px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        /* Notification styling */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            display: none;
+            font-size: 1rem;
+        }
+
+        .notification.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Notification element -->
+    <div id="notification" class="notification">
+        Account successfully created!
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Left Section (Image container) -->
+            <div class="col-lg-5 bg-register-left">
+                <img src="sign here.jpg" alt="EDU CONNECT" />
+            </div>
+
+            <!-- Right Section (Registration Form) -->
+            <div class="col-lg-7">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Sign Here!</h1>
+                        </div>
+                        <div class="text-center mb-4">
+                            <a href="#" class="btn btn-google">
+                                <i class="fab fa-google fa-fw"></i> Sign up with Google
+                            </a>
+                        </div>
+                        <form class="user" id="registerForm" method="POST">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Email Address" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" name="password" id="password" required>
+                                <!-- Password guidelines -->
+                                <div id="password-guidelines" class="password-guidelines">
+                                    Password must contain at least 8 characters, including numbers and symbols.
+                                </div>
+                                <div id="password-error" class="password-error" style="display: none;">
+                                    Password does not meet the criteria.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" id="confirm-password" required>
+                                <!-- Password mismatch error -->
+                                <div id="password-mismatch" class="password-mismatch" style="display: none;">
+                                    Passwords do not match.
+                                </div>
+                            </div>
+
+                            <!-- Terms and Conditions Checkbox -->
+                            <div class="form-group terms-condition">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the <a href="terms-conditions.html">Terms and Conditions</a></label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Create Account</button>
+                        </form>
+                        <div class="text-center">
+                            <a class="small" href="login.html">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Password validation script -->
+    <script>
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const passwordGuidelines = document.getElementById('password-guidelines');
+            const passwordError = document.getElementById('password-error');
+            
+            // Regex to check password strength
+            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            
+            // Check if password meets the criteria
+            if (regex.test(password)) {
+                passwordGuidelines.style.display = 'none'; // Hide guidelines if password is strong
+                passwordError.style.display = 'none'; // Hide error if valid
+            } else {
+                passwordGuidelines.style.display = 'block'; // Show guidelines if not valid
+                passwordError.style.display = 'block'; // Show error message
+            }
+        });
+
+        document.getElementById('confirm-password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            const mismatchMessage = document.getElementById('password-mismatch');
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                mismatchMessage.style.display = 'block';
+            } else {
+                mismatchMessage.style.display = 'none';
+            }
+        });
+
+        // Form submission with notification
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show notification on success
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(function() {
+                notification.classList.remove('show');
+            }, 3000);
+        });
+    </script>
+
+<script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent the form from submitting normally
+
+        const firstName = form.querySelector('input[name="first_name"]').value;
+        const lastName = form.querySelector('input[name="last_name"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const password = form.querySelector('input[name="password"]').value;
+        const confirmPassword = form.querySelector('input[name="confirm_password"]').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        // Check if the email already exists in local storage
+        const existingUser = JSON.parse(localStorage.getItem(email));
+        if (existingUser) {
+            alert('Email is already registered. Please log in.');
+            return;
+        }
+
+        // Store user data in local storage
+        const user = { firstName, lastName, email, password };
+        localStorage.setItem(email, JSON.stringify(user));
+
+        alert('Registration successful! Redirecting to login page...');
+        window.location.href = 'login.html'; // Redirect to login page
+    });
+</script>
+
+</body>
+
+</html>
