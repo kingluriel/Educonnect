@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmations Schedules</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fc;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #6EC1E4;
+            color: #fff;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar .navbar-brand img {
+            height: 40px;
+            width: 100px;
+        }
+
+        .navbar .logout-btn {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .navbar .logout-btn:hover {
+            background-color: #2e59d9;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 250px;
+            background: #ffffff;
+            color: #333;
+            height: calc(100vh - 60px);
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar .profile {
+            text-align: center;
+        }
+
+        .sidebar .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .sidebar .profile input[type="file"] {
+            display: none;
+        }
+
+        .sidebar .profile .change-picture {
+            color: #4e73df;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .sidebar .nav-link {
+            color: #333;
+            margin: 10px 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link:hover {
+            background: #f8f9fc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        .greeting-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .schedule-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .schedule-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .schedule-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .schedule-card h5 {
+            margin-top: 0;
+        }
+
+        .schedule-card p {
+            margin: 5px 0;
+        }
+
+        .schedule-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4e73df;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .save-schedule, .remove-schedule {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <h4>Tutors Dashboard</h4>
+        </a>
+        <div class="ms-auto">
+            <a href="login.html" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/100" alt="Profile Image" id="profile-img">
+            <input type="file" id="upload-img" onchange="previewImage()">
+            <label for="upload-img" class="change-picture" id="change-picture-label">Change Picture</label>
+            <h5 class="mt-3" id="tutor-name">[Tutor Name]</h5>
+        </div>
+        <hr class="bg-light">
+        <a href="index.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="students.html" class="nav-link"><i class="fas fa-user"></i> Students</a>
+        <a href="confirmations.html" class="nav-link"><i class="fas fa-calendar-check"></i> Confirmations</a>
+        <a href="feedback.html" class="nav-link"><i class="fas fa-comments"></i> Feedback</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Greeting Box -->
+        <div class="greeting-box">
+            <h2>Upcoming Confirmed Schedules</h2>
+            <p>Here is a list of your confirmed tutoring sessions.</p>
+        </div>
+
+        <!-- Schedules List -->
+        <div class="schedule-section" id="schedule-section">
+            <!-- Dynamic schedule cards will be added here -->
+        </div>
+
+        <a href="index.html" class="back-link">Back to Dashboard</a>
+    </div>
+
+    <script>
+        // Load user data and profile image
+        document.addEventListener("DOMContentLoaded", function () {
+            const storedUser = localStorage.getItem("loggedInUser");
+            const storedImage = localStorage.getItem("profileImage");
+
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                document.getElementById("tutor-name").textContent = `${user.firstName} ${user.lastName}`;
+            } else {
+                const user = { firstName: "John", lastName: "Doe" };
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
+                document.getElementById("tutor-name").textContent = `${user.firstName} ${user.lastName}`;
+            }
+
+            if (storedImage) {
+                document.getElementById("profile-img").src = storedImage;
+            }
+        });
+
+        // Update profile image
+        function previewImage() {
+            const file = document.getElementById("upload-img").files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                const imageBase64 = reader.result;
+                document.getElementById("profile-img").src = imageBase64;
+                localStorage.setItem("profileImage", imageBase64);
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Display confirmed schedules from localStorage
+        function displaySchedules() {
+            const schedules = JSON.parse(localStorage.getItem("courses")) || [];
+            const scheduleSection = document.getElementById("schedule-section");
+            scheduleSection.innerHTML = "";
+
+            schedules.forEach(schedule => {
+                const card = `
+                    <div class="schedule-card" data-schedule-id="${schedule.code}">
+                        <h5>${schedule.name}</h5>
+                        <p><strong>Code:</strong> ${schedule.code}</p>
+                        <p><strong>Day:</strong> ${schedule.day}</p>
+                        <p><strong>Time:</strong> ${schedule.time}</p>
+                        <button class="btn btn-primary btn-sm save-schedule" data-schedule='${JSON.stringify(schedule)}'>
+                            Save to Dashboard
+                        </button>
+                        <button class="btn btn-danger btn-sm remove-schedule mt-2" data-schedule-id="${schedule.code}">
+                            Remove from Dashboard
+                        </button>
+                    </div>`;
+                scheduleSection.innerHTML += card;
+            });
+
+            // Add event listeners to "Save to Dashboard" and "Remove from Dashboard" buttons
+            const saveButtons = document.querySelectorAll('.save-schedule');
+            saveButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const scheduleData = JSON.parse(this.getAttribute('data-schedule'));
+                    saveScheduleToDashboard(scheduleData);
+                });
+            });
+
+            const removeButtons = document.querySelectorAll('.remove-schedule');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const scheduleId = this.getAttribute('data-schedule-id');
+                    removeScheduleFromDashboard(scheduleId);
+                });
+            });
+        }
+
+        // Save schedule to dashboard
+        function saveScheduleToDashboard(scheduleData) {
+            const existingSchedules = JSON.parse(localStorage.getItem("dashboardSchedules")) || [];
+            if (!existingSchedules.some(schedule => schedule.code === scheduleData.code)) {
+                existingSchedules.push(scheduleData);
+                localStorage.setItem("dashboardSchedules", JSON.stringify(existingSchedules));
+                alert("Schedule saved to Dashboard!");
+            } else {
+                alert("This schedule is already saved on the Dashboard.");
+            }
+        }
+
+        // Remove schedule from dashboard
+        function removeScheduleFromDashboard(scheduleId) {
+            const dashboardSchedules = JSON.parse(localStorage.getItem("dashboardSchedules")) || [];
+            const updatedSchedules = dashboardSchedules.filter(schedule => schedule.code !== scheduleId);
+            localStorage.setItem("dashboardSchedules", JSON.stringify(updatedSchedules));
+
+            // Refresh the schedule list after removal
+            displaySchedules();
+            alert("Schedule removed from Dashboard!");
+        }
+
+        // Load schedules on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            displaySchedules();
+        });
+    </script>
+</body>
+
+</html>

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard with Fixed Sidebar</title>
-    <!-- Custom fonts and styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -16,9 +16,8 @@
             margin: 0;
         }
 
-        /* Navbar */
         .navbar {
-            background-color: #4e73df;
+            background-color: #6EC1E4;
             color: #fff;
             padding: 10px 20px;
             position: fixed;
@@ -45,7 +44,6 @@
             background-color: #2e59d9;
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 60px;
@@ -84,12 +82,6 @@
             margin-top: 10px;
         }
 
-        .sidebar .profile img.uploaded {
-            width: 150px;
-            height: 150px;
-            transition: width 0.3s, height 0.3s;
-        }
-
         .sidebar .nav-link {
             color: #333;
             margin: 10px 0;
@@ -104,7 +96,6 @@
             border-radius: 5px;
         }
 
-        /* Main Content */
         .main-content {
             margin-left: 270px;
             padding: 20px;
@@ -151,12 +142,29 @@
             margin-top: 20px;
         }
 
-        /* Added styles for the schedule image */
         .schedule-image {
-            width: 100px; /* Adjust the size of the image */
+            width: 100px;
             height: 100px;
             object-fit: cover;
             border-radius: 10px;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Add styles for the chart */
+        #rate-chart-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
         }
     </style>
 </head>
@@ -165,10 +173,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
-            <img src="final_logo.png" alt="Logo">
+            <h4>Tutors Dashboard</h4>
         </a>
         <div class="ms-auto">
-            <a href="#" class="logout-btn">Logout</a>
+            <a href="login.html" class="logout-btn">Logout</a>
         </div>
     </nav>
 
@@ -178,14 +186,15 @@
             <img src="https://via.placeholder.com/100" alt="Profile Image" id="profile-img">
             <input type="file" id="upload-img" onchange="previewImage()">
             <label for="upload-img" class="change-picture" id="change-picture-label">Change Picture</label>
-            <h5 class="mt-3">Maria Marie Fernandez</h5>
-            <p>Tutor ID: 289370</p>
+            <h5 class="mt-3" id="tutor-name">[Tutor Name]</h5>
         </div>
         <hr class="bg-light">
-        <a href="#" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#" class="nav-link"><i class="fas fa-user"></i> Students</a>
-        <a href="#" class="nav-link"><i class="fas fa-calendar-alt"></i> Schedule</a>
-        <a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> Reports</a>
+        <a href="index.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="students.html" class="nav-link"><i class="fas fa-user"></i> Students</a>
+        <a href="confirmations.html" class="nav-link"><i class="fas fa-calendar-alt"></i> Schedule</a>
+        <a href="feedback.html" class="nav-link"><i class="fas fa-comments"></i> Feedback</a>
+
+
     </div>
 
     <!-- Main Content -->
@@ -194,9 +203,9 @@
         <div class="greeting-box">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h2>Hello, Teacher Marie!</h2>
+                    <h2 id="greeting">Hello, Teacher [Tutor Full Name]!</h2>
                     <p>We’re glad to have you with us, supporting students in their journeys. Let’s make every session count!</p>
-                    <p><strong>Member since:</strong> 2024 | <strong>Profile views:</strong> 968</p>
+                    <p><strong>Member since:</strong> <span id="member-since">Loading...</span> | <strong>Profile views:</strong> 968</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <img src="greet.png" alt="Illustration" style="max-width: 100%; height: auto;">
@@ -206,66 +215,201 @@
 
         <!-- Interactive Cards -->
         <div class="interactive-cards">
-            <div class="card-box">
-                <i class="fas fa-user"></i>
-                <h5>Students</h5>
-                <p>Profile view</p>
-            </div>
-            <div class="card-box">
-                <i class="fas fa-envelope"></i>
-                <h5>Confirmations</h5>
-                <p>Confirmed schedules</p>
-            </div>
-            <div class="card-box">
-                <i class="fas fa-book"></i>
-                <h5>Courses</h5>
-                <p>View courses</p>
-            </div>
-
+            <a href="students.html" class="card-link">
+                <div class="card-box">
+                    <i class="fas fa-user"></i>
+                    <h5>Students</h5>
+                    <p>View students list</p>
+                </div>
+            </a>
+            <a href="confirmations.html" class="card-link">
+                <div class="card-box">
+                    <i class="fas fa-envelope"></i>
+                    <h5>Confirmations</h5>
+                    <p>Confirmed schedules</p>
+                </div>
+            </a>
+            <a href="courses.html" class="card-link">
+                <div class="card-box">
+                    <i class="fas fa-book"></i>
+                    <h5>Courses</h5>
+                    <p>Manage your courses</p>
+                </div>
+            </a>
         </div>
 
         <!-- Schedule and Chart Section -->
         <div class="schedule-section">
             <div class="card-box">
+                <!-- Heading for Schedules -->
+                <h4 class="mb-4"><b>YOUR SCHEDULES</b></h4>
                 <div class="d-flex align-items-center">
                     <img src="sched.png" alt="Schedule Image" class="schedule-image me-3">
-                    <div>
-                        <h5>Upcoming Schedule</h5>
-                        <p><strong>Student ID:</strong> 56779</p>
-                        <p><strong>Math Test:</strong> Chapter 25.2</p>
-                        <p><strong>Time:</strong> 1:30 PM | Saturday | Nov 13 2024</p>
-                    </div>
+                    <div id="dashboard-schedule-section" class="schedule-section">
+                        <!-- Upcoming schedules will appear here -->
+                    </div>                    
                 </div>
             </div>
+
+           <!-- Clickable Rate Chart Card -->
+        <a href="ratechart.html" class="card-link">
             <div class="card-box">
                 <h5>Rate Chart</h5>
-                <p>Interactive chart or analytics</p>
+                    <div id="rate-chart-container">
+                    <canvas id="proficiency-chart"></canvas>
             </div>
+        </div>
+            </a>    
         </div>
     </div>
 
     <script>
-        // Function to preview uploaded image
+        // Store and retrieve user data from localStorage
+        function loginUser() {
+            const user = {
+                firstName: 'John',  // Replace with actual data
+                lastName: 'Doe',  // Replace with actual data
+                memberSince: 'Nov 1, 2024'
+            };
+
+            // Store user data in localStorage
+            localStorage.setItem("loggedInUser", JSON.stringify(user));
+        }
+
+        // When the page loads, check if the user is logged in
+        document.addEventListener("DOMContentLoaded", function () {
+            const storedUser = localStorage.getItem("loggedInUser");
+
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                document.getElementById("greeting").textContent = `Hello, Teacher ${user.firstName}!`;
+                document.getElementById("tutor-name").textContent = `${user.firstName} ${user.lastName}`;
+                const memberSince = user.memberSince || new Date().toLocaleDateString();
+                document.getElementById("member-since").textContent = memberSince;
+            } else {
+                loginUser(); // Simulate login if not found
+                location.reload(); // Reload to pick up new data
+            }
+        });
+
+        // Image Preview and Change
         function previewImage() {
-            const file = document.getElementById('upload-img').files[0];
+            const file = document.getElementById("upload-img").files[0];
             const reader = new FileReader();
 
-            reader.onload = function(e) {
-                // Set the uploaded image as the profile image
-                const profileImage = document.getElementById('profile-img');
-                profileImage.src = e.target.result;
-
-                // Add class to make the image larger
-                profileImage.classList.add('uploaded');
-
-                // Hide the "Change Picture" label
-                document.getElementById('change-picture-label').style.display = 'none';
-            }
+            reader.onloadend = function () {
+                const imageBase64 = reader.result;
+                document.getElementById("profile-img").src = imageBase64;
+                localStorage.setItem("profileImage", imageBase64); // Save the image to localStorage
+            };
 
             if (file) {
                 reader.readAsDataURL(file);
             }
         }
+
+        // On page load, set the profile image if available
+        document.addEventListener("DOMContentLoaded", function () {
+            const storedImage = localStorage.getItem("profileImage");
+            if (storedImage) {
+                document.getElementById("profile-img").src = storedImage;
+            }
+        });
+
+        // Function to load the dashboard schedules on page load
+        function loadDashboardSchedules() {
+            const schedules = JSON.parse(localStorage.getItem("dashboardSchedules")) || [];
+            const dashboardSection = document.getElementById("dashboard-schedule-section");
+
+            dashboardSection.innerHTML = "";  // Clear existing schedule content
+
+            schedules.forEach((schedule, index) => {
+                const card = `
+                    <div class="schedule-card">
+                        <h5>${schedule.name}</h5>
+                        <p><strong>Code:</strong> ${schedule.code}</p>
+                        <p><strong>Day:</strong> ${schedule.day}</p>
+                        <p><strong>Time:</strong> ${schedule.time}</p>
+                    </div>`;
+                dashboardSection.innerHTML += card;
+            });
+        }
+
+        // Load the schedules from localStorage when the page loads
+        document.addEventListener("DOMContentLoaded", function () {
+            loadDashboardSchedules();  // Load the schedules when `index.html` is loaded
+            loadProficiencyChart();  // Load the proficiency chart
+        });
+
+        // Load proficiency chart for subjects/courses
+        function loadProficiencyChart() {
+            var ctx = document.getElementById('proficiency-chart').getContext('2d');
+            var proficiencyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Math', 'Science', 'English', 'History', 'Art'],
+                    datasets: [{
+                        label: 'Proficiency Level (%)',
+                        data: [85, 92, 75, 80, 70],
+                        backgroundColor: '#4e73df',
+                        borderColor: '#4e73df',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+    // Check if there's stored data in localStorage
+    const storedSubjects = JSON.parse(localStorage.getItem('subjects'));
+    const storedProficiencyData = JSON.parse(localStorage.getItem('proficiencyData'));
+
+    // If stored data exists, use it to update the chart
+    if (storedSubjects && storedProficiencyData) {
+        subjects = storedSubjects;
+        proficiencyData = storedProficiencyData;
+    }
+
+    // Load Proficiency Chart with the retrieved data
+    loadProficiencyChart();
+
+    // You can also add an event listener to refresh the chart when needed
+});
+
+// Function to load the proficiency chart
+function loadProficiencyChart() {
+    var ctx = document.getElementById('proficiency-chart').getContext('2d');
+    window.proficiencyChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: subjects,
+            datasets: [{
+                label: 'Proficiency Level (%)',
+                data: proficiencyData,
+                backgroundColor: '#4e73df',
+                borderColor: '#4e73df',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+}
+
     </script>
 </body>
 

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Admin Login Page">
+    <meta name="author" content="">
+
+    <title>EDU CONNECT - Admin Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: white;
+            color: black;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col-lg-5,
+        .col-lg-7 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .col-lg-5 {
+            padding: 0;
+        }
+
+        .bg-register-left {
+            background-color: #1e3d58;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .bg-register-left img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            background-color: #ADD8E6;
+        }
+
+        .card-body {
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            margin-bottom: 8px;
+            padding: 4px;
+        }
+
+        h1.h4 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .text-center a.small {
+            color: black !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Left Section (Image container) -->
+            <div class="col-lg-5 bg-register-left">
+                <img src="login.jpg" alt="EDU CONNECT Admin Login">
+            </div>
+
+            <!-- Right Section (Admin Login Form) -->
+            <div class="col-lg-7">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Admin Login</h1>
+                        </div>
+                        <form id="adminLoginForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Username or Email" id="adminUsername" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" id="adminPassword" required>
+                            </div>
+                            <a href="admin.html" class="btn btn-primary btn-user btn-block">Login</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Predefined admin credentials
+        const adminCredentials = {
+            username: "admin",
+            email: "admin",
+            password: "admin123*"
+        };
+
+        document.getElementById("adminLoginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("adminUsername").value;
+            const password = document.getElementById("adminPassword").value;
+
+            // Validate credentials
+            if (
+                (username === adminCredentials.username || username === adminCredentials.email) &&
+                password === adminCredentials.password
+            ) {
+                // Store login flag in localStorage
+                localStorage.setItem("isAdminLoggedIn", "true");
+
+                alert("Login successful! Redirecting to Admin Dashboard...");
+                window.location.href = "admin.html"; // Redirect to admin dashboard
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        });
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

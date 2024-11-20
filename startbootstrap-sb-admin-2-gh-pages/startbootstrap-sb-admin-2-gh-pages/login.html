@@ -152,7 +152,7 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Welcome!</h1>
                         </div>
                         <div class="text-center mb-4">
                             <a href="#" class="btn btn-google">
@@ -190,14 +190,14 @@
         // Pre-fill the login form with stored credentials if available
         window.onload = function() {
             const storedUser = JSON.parse(localStorage.getItem('loggedInUser'));
-
+    
             if (storedUser) {
                 // Pre-fill the form fields if credentials are found in localStorage
                 document.querySelector('input[name="email"]').value = storedUser.email;
                 document.querySelector('input[name="password"]').value = storedUser.password;
             }
         };
-
+    
         // Handle form submission
         const form = document.querySelector('form');
     
@@ -207,20 +207,22 @@
             const email = form.querySelector('input[name="email"]').value;
             const password = form.querySelector('input[name="password"]').value;
     
-            // Check if user exists in local storage (simulating a mock login)
-            const user = JSON.parse(localStorage.getItem(email));
+            // Simulate checking if user exists in localStorage (using a mock stored user data)
+            const user = JSON.parse(localStorage.getItem(email)); // Assume email is the key for localStorage data
     
             if (user && user.password === password) {
-                // Store email and password in local storage for future logins
-                localStorage.setItem('loggedInUser', JSON.stringify({ email, password }));
-
-                alert(`Welcome back, ${user.firstName}! Redirecting to your dashboard...`);
-                window.location.href = 'index.html'; // Redirect to the homepage or dashboard
+                // Store the user object in localStorage for future logins
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+    
+                alert(`Welcome, ${user.firstName}! Redirecting to choose your role...`);
+    
+                // Redirect to the role selection page
+                window.location.href = 'role.html'; // Redirect to role selection page
             } else {
                 alert('Invalid email or password. Please try again.');
             }
         });
-
+    
         // Function to logout and clear localStorage
         function logout() {
             // Remove the logged-in user from localStorage
@@ -228,6 +230,8 @@
             window.location.href = 'login.html'; // Redirect to login page after logout
         }
     </script>
+    
+    
 
     <!-- Bootstrap JS -->
     <script src="vendor/jquery/jquery.min.js"></script>

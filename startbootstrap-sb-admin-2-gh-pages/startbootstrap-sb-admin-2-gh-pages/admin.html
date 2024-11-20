@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EDU CONNECT - Admin Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        /* Basic Reset and Layout */
+        body {
+            background-color: #f8f9fc;
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #4e73df;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            padding-top: 20px;
+            color: white;
+        }
+
+        .sidebar a {
+            color: white;
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover {
+            background-color: #2e59d9;
+            text-decoration: none;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #4e73df;
+            color: white;
+            padding: 10px 30px;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            width: calc(100% - 250px);
+            z-index: 1000;
+        }
+
+        .navbar .navbar-brand {
+            font-size: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .navbar a:hover {
+            background-color: #2e59d9;
+            border-radius: 5px;
+        }
+
+        /* Main content section */
+        .content {
+            margin-left: 250px;
+            padding-top: 60px;
+            padding-left: 30px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            font-weight: bold;
+            background-color: #4e73df;
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chart-container {
+            padding: 20px;
+        }
+
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        .logout-btn {
+            color: white;
+            background-color: #e74a3b;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Adjusting for smaller screens */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .navbar {
+                left: 200px;
+                width: calc(100% - 200px);
+            }
+
+            .content {
+                margin-left: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header text-center py-3">
+            <h4>Admin Panel</h4>
+        </div>
+        <a href="admin.html">Dashboard</a>
+        <a href="user-management.html">User Management</a>
+        <a href="course-management.html">Course Management</a>
+        <a href="reports.html">Reports</a>
+        <a href="settings.html">Settings</a>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div>
+            <h5>Welcome, Admin</h5>
+        </div>
+        <div>
+            <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="row">
+            <!-- Summary Cards -->
+            <div class="col-md-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Total Users
+                    </div>
+                    <div class="card-body">
+                        <h3>2,345</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Active Courses
+                    </div>
+                    <div class="card-body">
+                        <h3>120</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Revenue
+                    </div>
+                    <div class="card-body">
+                        <h3>$45,000</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Feedback
+                    </div>
+                    <div class="card-body">
+                        <h3>1,230</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <div class="card-header">User Growth</div>
+                    <div class="chart-container">
+                        <canvas id="userGrowthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">Course Statistics</div>
+                    <div class="chart-container">
+                        <canvas id="courseStatsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">Recent Activity</div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>John Doe</td>
+                                    <td>Enrolled in "Math 101"</td>
+                                    <td>2024-11-20</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jane Smith</td>
+                                    <td>Added a new course</td>
+                                    <td>2024-11-19</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Michael Johnson</td>
+                                    <td>Left feedback</td>
+                                    <td>2024-11-18</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- User Management Section in Admin Dashboard -->
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">User Management</div>
+        <div class="table-responsive">
+            <table class="table table-striped" id="userTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- User List Will Be Added Here Dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // User Growth Chart
+        const ctx1 = document.getElementById('userGrowthChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Users',
+                    data: [200, 400, 600, 800, 1000, 1200],
+                    borderColor: '#4e73df',
+                    backgroundColor: 'rgba(78, 115, 223, 0.1)'
+                }]
+            }
+        });
+
+        // Course Stats Chart
+        const ctx2 = document.getElementById('courseStatsChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Math', 'Science', 'History', 'English'],
+                datasets: [{
+                    data: [30, 40, 20, 10],
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+                }]
+            }
+        });
+
+        // Logout functionality
+        function logoutAdmin() {
+            localStorage.removeItem("isAdminLoggedIn");
+            alert("You have been logged out.");
+            window.location.href = "adminlogin.html"; // Redirect to login page
+        }
+
+        // Function to load and display users
+    function loadUsers() {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const tableBody = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+
+        tableBody.innerHTML = ""; // Clear the table before adding new rows
+
+        users.forEach((user, index) => {
+            const row = document.createElement("tr");
+
+            const usernameCell = document.createElement("td");
+            usernameCell.textContent = user.username;
+            row.appendChild(usernameCell);
+
+            const emailCell = document.createElement("td");
+            emailCell.textContent = user.email;
+            row.appendChild(emailCell);
+
+            const roleCell = document.createElement("td");
+            roleCell.textContent = user.role.charAt(0).toUpperCase() + user.role.slice(1);
+            row.appendChild(roleCell);
+
+            const statusCell = document.createElement("td");
+            statusCell.textContent = user.status.charAt(0).toUpperCase() + user.status.slice(1);
+            row.appendChild(statusCell);
+
+            const actionCell = document.createElement("td");
+            if (user.status === "pending") {
+                const approveButton = document.createElement("button");
+                approveButton.textContent = "Approve";
+                approveButton.classList.add("btn", "btn-success");
+                approveButton.onclick = () => approveTutor(index);
+                actionCell.appendChild(approveButton);
+            }
+            row.appendChild(actionCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Approve a tutor
+    function approveTutor(index) {
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        users[index].status = "approved"; // Change status to approved
+        localStorage.setItem("users", JSON.stringify(users)); // Update localStorage
+        loadUsers(); // Reload users
+    }
+
+    // Load users on page load
+    window.onload = loadUsers;
+    </script>
+</body>
+
+</html>
